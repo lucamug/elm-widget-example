@@ -9,42 +9,29 @@ import UrlParser exposing ((</>))
 
 type Route
     = RouteHome
-    | RouteWidgetChallenger
-    | RouteWidgetCreateAccount
-    | RouteWidgetCreateAccountWithEmailStep1
-    | RouteWidgetCreateAccountWithEmailStep2
-    | RouteWidgetCreateAccountWithEmailStep3
-    | RouteWidgetCreateAccountWithPhoneStep1
-    | RouteWidgetCreateAccountWithPhoneStep2
-    | RouteWidgetCreateAccountWithPhoneStep3
-    | RouteWidgetSignIn Slug
+    | RouteWidgetExampleEmailStep1
+    | RouteWidgetExampleEmailStep2
+    | RouteWidgetExample4DigitCodeStep1
+    | RouteWidgetExample4DigitCodeStep2
     | RouteFramework
     | RouteFramework2 Slug Slug
 
 
 path :
-    { challenger : String
-    , codeSent : String
-    , createAccount : String
-    , emailSent : String
-    , emailVerified : String
+    { emailOk : String
+    , example : String
     , framework : String
-    , phoneVerified : String
-    , widthEmail : String
+    , withEmail : String
     , withPhone : String
-    , signIn : String
+    , codeOk : String
     }
 path =
-    { createAccount = "create_account"
-    , signIn = "signin"
+    { example = "example"
+    , withEmail = "with-email"
+    , withPhone = "with-phone"
+    , emailOk = "ok"
+    , codeOk = "ok"
     , framework = "framework"
-    , challenger = "challenger"
-    , widthEmail = "with_email"
-    , withPhone = "with_phone"
-    , emailSent = "email_sent"
-    , codeSent = "code_sent"
-    , emailVerified = "email_verified"
-    , phoneVerified = "phone_verified"
     }
 
 
@@ -54,15 +41,10 @@ route =
         [ UrlParser.map RouteHome (UrlParser.s "")
         , UrlParser.map RouteFramework (UrlParser.s path.framework)
         , UrlParser.map RouteFramework2 (UrlParser.s path.framework </> stateParser </> stateParser)
-        , UrlParser.map RouteWidgetChallenger (UrlParser.s path.challenger)
-        , UrlParser.map RouteWidgetCreateAccount (UrlParser.s path.createAccount)
-        , UrlParser.map RouteWidgetCreateAccountWithEmailStep1 (UrlParser.s path.createAccount </> UrlParser.s path.widthEmail)
-        , UrlParser.map RouteWidgetCreateAccountWithEmailStep2 (UrlParser.s path.createAccount </> UrlParser.s path.widthEmail </> UrlParser.s path.emailSent)
-        , UrlParser.map RouteWidgetCreateAccountWithEmailStep3 (UrlParser.s path.createAccount </> UrlParser.s path.widthEmail </> UrlParser.s path.emailVerified)
-        , UrlParser.map RouteWidgetCreateAccountWithPhoneStep1 (UrlParser.s path.createAccount </> UrlParser.s path.withPhone)
-        , UrlParser.map RouteWidgetCreateAccountWithPhoneStep2 (UrlParser.s path.createAccount </> UrlParser.s path.withPhone </> UrlParser.s path.codeSent)
-        , UrlParser.map RouteWidgetCreateAccountWithPhoneStep3 (UrlParser.s path.createAccount </> UrlParser.s path.withPhone </> UrlParser.s path.phoneVerified)
-        , UrlParser.map RouteWidgetSignIn (UrlParser.s path.signIn </> stateParser)
+        , UrlParser.map RouteWidgetExampleEmailStep1 (UrlParser.s path.example </> UrlParser.s path.withEmail)
+        , UrlParser.map RouteWidgetExampleEmailStep2 (UrlParser.s path.example </> UrlParser.s path.withEmail </> UrlParser.s path.emailOk)
+        , UrlParser.map RouteWidgetExample4DigitCodeStep1 (UrlParser.s path.example </> UrlParser.s path.withPhone)
+        , UrlParser.map RouteWidgetExample4DigitCodeStep2 (UrlParser.s path.example </> UrlParser.s path.withPhone </> UrlParser.s path.codeOk)
         ]
 
 
@@ -101,32 +83,17 @@ routeToString page =
                 RouteHome ->
                     []
 
-                RouteWidgetChallenger ->
-                    [ path.challenger ]
+                RouteWidgetExampleEmailStep1 ->
+                    [ path.example, path.withEmail ]
 
-                RouteWidgetCreateAccount ->
-                    [ path.createAccount ]
+                RouteWidgetExampleEmailStep2 ->
+                    [ path.example, path.withEmail, path.emailOk ]
 
-                RouteWidgetCreateAccountWithEmailStep1 ->
-                    [ path.createAccount, path.widthEmail ]
+                RouteWidgetExample4DigitCodeStep1 ->
+                    [ path.example, path.withPhone ]
 
-                RouteWidgetCreateAccountWithEmailStep2 ->
-                    [ path.createAccount, path.widthEmail, path.emailSent ]
-
-                RouteWidgetCreateAccountWithEmailStep3 ->
-                    [ path.createAccount, path.widthEmail, path.emailVerified ]
-
-                RouteWidgetCreateAccountWithPhoneStep1 ->
-                    [ path.createAccount, path.withPhone ]
-
-                RouteWidgetCreateAccountWithPhoneStep2 ->
-                    [ path.createAccount, path.withPhone, path.codeSent ]
-
-                RouteWidgetCreateAccountWithPhoneStep3 ->
-                    [ path.createAccount, path.withPhone, path.phoneVerified ]
-
-                RouteWidgetSignIn slug ->
-                    [ path.signIn, slugToString slug ]
+                RouteWidgetExample4DigitCodeStep2 ->
+                    [ path.example, path.withPhone, path.codeOk ]
 
                 RouteFramework ->
                     [ path.framework ]

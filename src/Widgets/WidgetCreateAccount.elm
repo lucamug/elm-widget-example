@@ -102,7 +102,7 @@ viewElement model =
             , width fill
             , paddingXY genericPaddingX genericPaddingY
             , spacing globalSpacing
-            , onRight <| link [ moveLeft <| iconSize + genericPaddingX, moveDown genericPaddingY ] { label = text "X", url = Route.routeToString Route.RouteHome }
+            , onRight <| link [ moveLeft <| iconSize + genericPaddingX, moveDown genericPaddingY ] { label = text "✕", url = Route.routeToString Route.RouteHome }
             ]
                 ++ redLineAtTheFrameTop
     in
@@ -137,16 +137,8 @@ codeComplete model =
 viewFront : Model -> List (Element Msg)
 viewFront model =
     case defaultRouteFromLocation model.location of
-        Route.RouteWidgetCreateAccountWithPhoneStep1 ->
-            [ paragraph [ Font.size 20 ] [ text "Main Title" ]
-            , paragraph [] [ text "Use your mobile" ]
-            , el [ width fill ] <| Button.buttonLinkWidth [ Modifier.Primary ] (Route.routeToString <| Route.RouteWidgetCreateAccountWithPhoneStep2) "sendAuthenticationCode" 300
-            , el [ centerX ] <| Button.buttonLink [] (Route.routeToString <| Route.RouteWidgetCreateAccountWithEmailStep1) "Create Account with Email"
-            ]
-
-        Route.RouteWidgetCreateAccountWithPhoneStep2 ->
-            [ paragraph [ Font.size 20 ] [ text "mainTitle" ]
-            , paragraph [] [ text "enterThe4DigitCode" ]
+        Route.RouteWidgetExample4DigitCodeStep1 ->
+            [ paragraph [ Font.size 20 ] [ text "Example of 4 digit code" ]
             , el [ centerX, width <| Element.px 230, height <| Element.px 92, moveUp 15 ] <|
                 Element.map MsgFormFieldWIdthPattern
                     (FormFieldWithPattern.inputText model.modelFormFieldWithPattern
@@ -158,23 +150,21 @@ viewFront model =
             , if codeComplete model then
                 Button.buttonLinkWidth
                     [ Modifier.Primary ]
-                    (Route.routeToString <| Route.RouteWidgetCreateAccountWithPhoneStep3)
-                    "submitCode"
+                    (Route.routeToString <| Route.RouteWidgetExample4DigitCodeStep2)
+                    "Submit Code"
                     200
               else
                 Button.buttonWidth
                     [ Modifier.Muted, Modifier.Disabled ]
                     Nothing
-                    "submitCode"
+                    "Submit Code"
                     200
+            , el [ centerX ] <| Button.buttonLink [] (Route.routeToString <| Route.RouteWidgetExample4DigitCodeStep1) "See an example of Credit Card Input Field"
             ]
 
-        Route.RouteWidgetCreateAccountWithPhoneStep3 ->
-            [ column [ Font.center, spacing globalSpacing ]
-                [ el [ paddingEach { bottom = 0, left = 0, right = 0, top = 48 }, centerX ] <| text "X"
-                , el [ centerX ] <| text <| "thePhoneHasBeenVerified"
-                , Button.buttonLinkWidth [ Modifier.Primary ] (Route.routeToString <| Route.RouteHome) "done" 200
-                ]
+        Route.RouteWidgetExample4DigitCodeStep2 ->
+            [ el [ paddingEach { bottom = 0, left = 0, right = 0, top = 48 }, centerX ] <| text "Thank you!"
+            , Button.buttonLinkWidth [ Modifier.Primary ] (Route.routeToString <| Route.RouteHome) "Done" 200
             ]
 
         _ ->
@@ -185,34 +175,22 @@ viewBack : Model -> List (Element Msg)
 viewBack model =
     -- CREATE ACCOUNT WITH EMAIL
     case defaultRouteFromLocation model.location of
-        Route.RouteWidgetCreateAccountWithEmailStep1 ->
-            [ paragraph [ Font.size 20 ] [ text <| "mainTitle" ]
-            , paragraph [] [ text <| "useYourMobile" ]
-            , el
-                [ onRight <| el [ alpha 0.5, moveDown 35, moveLeft 22 ] <| text "X", width fill ]
-              <|
-                Element.map MsgFormField <|
-                    FormField.inputText model.modelFormField
-                        { field = FormField.FieldEmail
-                        , pattern = validateEmail
-                        , label = "E-mail address"
-                        }
-            , el [ width fill ] <| Button.buttonLinkWidth [ Modifier.Primary ] (Route.routeToString <| Route.RouteWidgetCreateAccountWithEmailStep2) "sendVerificationEmail" 300
-            , el [ centerX ] <| Button.buttonLink [] (Route.routeToString <| Route.RouteWidgetCreateAccountWithPhoneStep1) "Create Account with Phone"
+        Route.RouteWidgetExampleEmailStep1 ->
+            [ paragraph [ Font.size 20 ] [ text <| "Example of E-mail input field" ]
+            , paragraph [] [ text <| "This is an example of E-mail input field" ]
+            , Element.map MsgFormField <|
+                FormField.inputText model.modelFormField
+                    { field = FormField.FieldEmail
+                    , pattern = validateEmail
+                    , label = "E-mail address"
+                    }
+            , el [ width fill ] <| Button.buttonLinkWidth [ Modifier.Primary ] (Route.routeToString <| Route.RouteWidgetExampleEmailStep2) "Submit Email" 300
+            , el [ centerX ] <| Button.buttonLink [] (Route.routeToString <| Route.RouteWidgetExample4DigitCodeStep1) "See an example of Credit Card Input Field"
             ]
 
-        Route.RouteWidgetCreateAccountWithEmailStep2 ->
-            [ el [ paddingEach { bottom = 0, left = 0, right = 0, top = 48 }, centerX ] <| text "X"
-            , paragraph [] [ text <| "anEmailHasBeenSent" ]
-            , Button.buttonLinkWidth [ Modifier.Primary ] (Route.routeToString <| Route.RouteHome) "done" 200
-            ]
-
-        Route.RouteWidgetCreateAccountWithEmailStep3 ->
-            [ column [ Font.center, spacing globalSpacing ]
-                [ el [ paddingEach { bottom = 0, left = 0, right = 0, top = 48 }, centerX ] <| text "X"
-                , el [ centerX ] <| text <| "theEmailHasBeenVerified"
-                , Button.buttonLinkWidth [ Modifier.Primary ] (Route.routeToString <| Route.RouteHome) "done" 200
-                ]
+        Route.RouteWidgetExampleEmailStep2 ->
+            [ el [ paddingEach { bottom = 0, left = 0, right = 0, top = 48 }, centerX ] <| text "Thank you!"
+            , Button.buttonLinkWidth [ Modifier.Primary ] (Route.routeToString <| Route.RouteHome) "Done" 200
             ]
 
         _ ->
@@ -299,7 +277,7 @@ defaultRoute : Maybe Route.Route -> Route.Route
 defaultRoute maybeRoute =
     case maybeRoute of
         Nothing ->
-            Route.RouteWidgetCreateAccount
+            Route.RouteHome
 
         Just route ->
             route
@@ -308,13 +286,10 @@ defaultRoute maybeRoute =
 flow : Navigation.Location -> Flow
 flow location =
     (case defaultRouteFromLocation location of
-        Route.RouteWidgetCreateAccountWithEmailStep1 ->
+        Route.RouteWidgetExampleEmailStep1 ->
             FlowEmail
 
-        Route.RouteWidgetCreateAccountWithEmailStep2 ->
-            FlowEmail
-
-        Route.RouteWidgetCreateAccountWithEmailStep3 ->
+        Route.RouteWidgetExampleEmailStep2 ->
             FlowEmail
 
         _ ->

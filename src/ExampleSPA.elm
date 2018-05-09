@@ -8,6 +8,7 @@ import Element.Font as Font
 import Framework
 import Framework.Button as Button
 import Framework.Color
+import Framework.Configuration exposing (conf)
 import Framework.Modifier as Modifier
 import FrameworkCustomized
 import FrameworkCustomized.Logo as Logo
@@ -232,8 +233,12 @@ viewStylish model =
             ]
         }
         [ Font.family
-            [ Font.typeface "Noto Sans"
-            , Font.sansSerif
+            [ Font.external
+                { name = conf.font.typeface
+                , url = conf.font.url
+                }
+            , Font.typeface conf.font.typeface
+            , conf.font.typefaceFallback
             ]
         , Font.size 16
         , Font.color <| Color.rgb 0x33 0x33 0x33
@@ -254,14 +259,14 @@ viewElement model =
         []
         [ header
         , viewBody model
-        , paragraph
+        , row
             [ hackStyle "position" "fixed"
             , hackStyle "top" "0"
             , hackStyle "right" "0"
             , hackStyle "z-index" "2"
             , alpha 0.5
             , spacing 10
-            , padding 10
+            , padding 20
             , Font.alignRight
             ]
           <|
@@ -271,9 +276,8 @@ viewElement model =
 
 widgetMenu : Model -> List (Element Msg)
 widgetMenu model =
-    [ Button.buttonLink [ Modifier.Small ] (Route.routeToString <| Route.RouteWidgetCreateAccountWithEmailStep1) "Email"
-    , Button.buttonLink [ Modifier.Small ] (Route.routeToString <| Route.RouteWidgetCreateAccountWithEmailStep3) "Email Verified"
-    , Button.buttonLink [ Modifier.Small ] (Route.routeToString <| Route.RouteWidgetCreateAccountWithPhoneStep1) "Phone"
+    [ Button.buttonLink [ Modifier.Small ] (Route.routeToString <| Route.RouteWidgetExampleEmailStep1) "Example E-mail Field"
+    , Button.buttonLink [ Modifier.Small ] (Route.routeToString <| Route.RouteWidgetExample4DigitCodeStep1) "Example 4 digit code"
     , Button.buttonLink [ Modifier.Small ] (Route.routeToString <| Route.RouteFramework) "Framework"
     ]
 
@@ -297,25 +301,16 @@ viewBody model =
         case Route.maybeRoute model.location of
             Just routeRoute ->
                 case routeRoute of
-                    Route.RouteWidgetCreateAccount ->
+                    Route.RouteWidgetExampleEmailStep1 ->
                         viewCreateAccount model
 
-                    Route.RouteWidgetCreateAccountWithEmailStep1 ->
+                    Route.RouteWidgetExampleEmailStep2 ->
                         viewCreateAccount model
 
-                    Route.RouteWidgetCreateAccountWithEmailStep2 ->
+                    Route.RouteWidgetExample4DigitCodeStep1 ->
                         viewCreateAccount model
 
-                    Route.RouteWidgetCreateAccountWithEmailStep3 ->
-                        viewCreateAccount model
-
-                    Route.RouteWidgetCreateAccountWithPhoneStep1 ->
-                        viewCreateAccount model
-
-                    Route.RouteWidgetCreateAccountWithPhoneStep2 ->
-                        viewCreateAccount model
-
-                    Route.RouteWidgetCreateAccountWithPhoneStep3 ->
+                    Route.RouteWidgetExample4DigitCodeStep2 ->
                         viewCreateAccount model
 
                     _ ->
@@ -359,7 +354,7 @@ viewSelectWidget =
         , scrollbarX
         ]
     <|
-        [ text "Select a Widget" ]
+        [ text "Welcome to the Single Page Application example built with elm-style-element" ]
 
 
 viewFrame : Model -> Element Msg -> Element Msg
