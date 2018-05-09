@@ -18,7 +18,7 @@ import Html.Events
 import Json.Decode
 import Navigation
 import Route
-import Widgets.WidgetCreateAccount as WidgetCreateAccount
+import Widgets.WidgetExample as WidgetExample
 import Window
 
 
@@ -28,9 +28,8 @@ version =
 
 
 type Msg
-    = MsgWidgetCreateAccount WidgetCreateAccount.Msg
+    = MsgWidgetExample WidgetExample.Msg
     | MsgFramework Framework.Msg
-      -- | MsgChangeLanguage Translations.Language
     | MsgChangeLocation Navigation.Location
     | MsgClick MouseClickData
     | MsgChangePassword String
@@ -68,17 +67,17 @@ changeLocation model location =
         ( modelFramework, cmdFramework ) =
             Framework.update (Framework.MsgChangeLocation location) model.modelFramework
 
-        ( modelWidgetCreateAccount, cmdWidgetCreateAccount ) =
-            WidgetCreateAccount.update (WidgetCreateAccount.MsgChangeLocation location) model.modelWidgetCreateAccount
+        ( modelWidgetExample, cmdWidgetExample ) =
+            WidgetExample.update (WidgetExample.MsgChangeLocation location) model.modelWidgetExample
     in
     ( { model
         | location = location
         , modelFramework = modelFramework
-        , modelWidgetCreateAccount = modelWidgetCreateAccount
+        , modelWidgetExample = modelWidgetExample
       }
     , Cmd.batch
         [ Cmd.map MsgFramework cmdFramework
-        , Cmd.map MsgWidgetCreateAccount cmdWidgetCreateAccount
+        , Cmd.map MsgWidgetExample cmdWidgetExample
         ]
     )
 
@@ -104,12 +103,12 @@ update msg model =
             else
                 ( model, Cmd.none )
 
-        MsgWidgetCreateAccount msgWidgetCreateAccount ->
+        MsgWidgetExample msgWidgetExample ->
             let
-                ( modelWidgetCreateAccount, cmd ) =
-                    WidgetCreateAccount.update msgWidgetCreateAccount model.modelWidgetCreateAccount
+                ( modelWidgetExample, cmd ) =
+                    WidgetExample.update msgWidgetExample model.modelWidgetExample
             in
-            ( { model | modelWidgetCreateAccount = modelWidgetCreateAccount }, Cmd.map MsgWidgetCreateAccount cmd )
+            ( { model | modelWidgetExample = modelWidgetExample }, Cmd.map MsgWidgetExample cmd )
 
         MsgFramework msgFramework ->
             let
@@ -133,7 +132,7 @@ type alias Model =
     , windowSize : Maybe Window.Size
 
     -- WIDGETS
-    , modelWidgetCreateAccount : WidgetCreateAccount.Model
+    , modelWidgetExample : WidgetExample.Model
     , modelFramework : Framework.Model
     }
 
@@ -146,7 +145,7 @@ initModel flag location =
     , windowSize = Just { width = flag.width, height = flag.height }
 
     -- WIDGETS
-    , modelWidgetCreateAccount = WidgetCreateAccount.initModel flag location
+    , modelWidgetExample = WidgetExample.initModel flag location
     , modelFramework = Framework.initModel { width = flag.width, height = flag.height } location
     }
 
@@ -213,7 +212,7 @@ viewHeader model =
         , padding 12
         ]
         1400
-        (el [] <| Logo.logo Logo.LogoMassiveDynamics 36)
+        (el [ Element.alignLeft ] <| Element.link [] { label = Logo.logo Logo.LogoMassiveDynamics 36, url = Route.routeToString <| Route.RouteHome })
 
 
 hackStyle : String -> String -> Attribute Msg
@@ -286,7 +285,26 @@ viewBody : Model -> Element Msg
 viewBody model =
     let
         background =
-            Background.image "images/P1000410.JPG"
+            case Route.maybeRoute model.location of
+                Nothing ->
+                    Background.image "images/bg01.jpg"
+
+                Just route ->
+                    case route of
+                        Route.RouteWidgetExampleEmailStep1 ->
+                            Background.image "images/bg01.jpg"
+
+                        Route.RouteWidgetExampleEmailStep2 ->
+                            Background.image "images/bg01.jpg"
+
+                        Route.RouteWidgetExample4DigitCodeStep1 ->
+                            Background.image "images/bg04.jpg"
+
+                        Route.RouteWidgetExample4DigitCodeStep2 ->
+                            Background.image "images/bg04.jpg"
+
+                        _ ->
+                            Background.image "images/bg02.jpg"
     in
     el
         [ width fill
@@ -302,16 +320,16 @@ viewBody model =
             Just routeRoute ->
                 case routeRoute of
                     Route.RouteWidgetExampleEmailStep1 ->
-                        viewCreateAccount model
+                        viewExample model
 
                     Route.RouteWidgetExampleEmailStep2 ->
-                        viewCreateAccount model
+                        viewExample model
 
                     Route.RouteWidgetExample4DigitCodeStep1 ->
-                        viewCreateAccount model
+                        viewExample model
 
                     Route.RouteWidgetExample4DigitCodeStep2 ->
-                        viewCreateAccount model
+                        viewExample model
 
                     _ ->
                         viewSelectWidget
@@ -320,9 +338,9 @@ viewBody model =
                 viewSelectWidget
 
 
-viewCreateAccount : Model -> Element Msg
-viewCreateAccount model =
-    map MsgWidgetCreateAccount (WidgetCreateAccount.viewElement model.modelWidgetCreateAccount)
+viewExample : Model -> Element Msg
+viewExample model =
+    map MsgWidgetExample (WidgetExample.viewElement model.modelWidgetExample)
 
 
 decoder : Json.Decode.Decoder MouseClickData
@@ -390,7 +408,7 @@ viewFrame model content =
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch
-        [ Sub.map MsgWidgetCreateAccount (WidgetCreateAccount.subscriptions model.modelWidgetCreateAccount)
+        [ Sub.map MsgWidgetExample (WidgetExample.subscriptions model.modelWidgetExample)
         , Window.resizes MsgChangeWindowSize
         ]
 

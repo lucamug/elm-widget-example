@@ -1,4 +1,4 @@
-module Widgets.WidgetCreateAccount exposing (Model, Msg(..), initModel, main, subscriptions, update, viewElement)
+module Widgets.WidgetExample exposing (Model, Msg(..), initModel, main, subscriptions, update, viewElement)
 
 import Color
 import Element exposing (..)
@@ -159,7 +159,7 @@ viewFront model =
                     Nothing
                     "Submit Code"
                     200
-            , el [ centerX ] <| Button.buttonLink [] (Route.routeToString <| Route.RouteWidgetExample4DigitCodeStep1) "See an example of Credit Card Input Field"
+            , el [ centerX ] <| Button.buttonLink [] (Route.routeToString <| Route.RouteWidgetExampleEmailStep1) "See an example of E-mail Input Field"
             ]
 
         Route.RouteWidgetExample4DigitCodeStep2 ->
@@ -185,7 +185,7 @@ viewBack model =
                     , label = "E-mail address"
                     }
             , el [ width fill ] <| Button.buttonLinkWidth [ Modifier.Primary ] (Route.routeToString <| Route.RouteWidgetExampleEmailStep2) "Submit Email" 300
-            , el [ centerX ] <| Button.buttonLink [] (Route.routeToString <| Route.RouteWidgetExample4DigitCodeStep1) "See an example of Credit Card Input Field"
+            , el [ centerX ] <| Button.buttonLink [] (Route.routeToString <| Route.RouteWidgetExample4DigitCodeStep1) "See an example of 4 digit code"
             ]
 
         Route.RouteWidgetExampleEmailStep2 ->
