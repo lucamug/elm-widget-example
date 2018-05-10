@@ -27592,18 +27592,22 @@ var _user$project$MyStyle$configuration = _elm_lang$core$Dict$fromList(
 			_0: {ctor: '_Tuple2', _0: 'buttonPaddingYDefault', _1: '13'},
 			_1: {
 				ctor: '::',
-				_0: {
-					ctor: '_Tuple2',
-					_0: 'font_url',
-					_1: A2(_elm_lang$core$Basics_ops['++'], 'https://fonts.googleapis.com/css?family=', _user$project$MyStyle$fontName)
-				},
+				_0: {ctor: '_Tuple2', _0: 'buttonPaddingYSmall', _1: '8'},
 				_1: {
 					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'font_typeface', _1: _user$project$MyStyle$fontName},
+					_0: {
+						ctor: '_Tuple2',
+						_0: 'font_url',
+						_1: A2(_elm_lang$core$Basics_ops['++'], 'https://fonts.googleapis.com/css?family=', _user$project$MyStyle$fontName)
+					},
 					_1: {
 						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'font_fallback', _1: 'serif'},
-						_1: {ctor: '[]'}
+						_0: {ctor: '_Tuple2', _0: 'font_typeface', _1: _user$project$MyStyle$fontName},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'font_fallback', _1: 'serif'},
+							_1: {ctor: '[]'}
+						}
 					}
 				}
 			}
@@ -35594,8 +35598,12 @@ var _user$project$Widgets_WidgetExample$viewFront = function (model) {
 					_mdgriffith$stylish_elephants$Element$paragraph,
 					{
 						ctor: '::',
-						_0: _mdgriffith$stylish_elephants$Element_Font$size(20),
-						_1: {ctor: '[]'}
+						_0: _mdgriffith$stylish_elephants$Element$width(_mdgriffith$stylish_elephants$Element$fill),
+						_1: {
+							ctor: '::',
+							_0: _mdgriffith$stylish_elephants$Element_Font$size(20),
+							_1: {ctor: '[]'}
+						}
 					},
 					{
 						ctor: '::',
@@ -35724,8 +35732,12 @@ var _user$project$Widgets_WidgetExample$viewBack = function (model) {
 					_mdgriffith$stylish_elephants$Element$paragraph,
 					{
 						ctor: '::',
-						_0: _mdgriffith$stylish_elephants$Element_Font$size(20),
-						_1: {ctor: '[]'}
+						_0: _mdgriffith$stylish_elephants$Element$width(_mdgriffith$stylish_elephants$Element$fill),
+						_1: {
+							ctor: '::',
+							_0: _mdgriffith$stylish_elephants$Element_Font$size(20),
+							_1: {ctor: '[]'}
+						}
 					},
 					{
 						ctor: '::',
@@ -35736,7 +35748,11 @@ var _user$project$Widgets_WidgetExample$viewBack = function (model) {
 					ctor: '::',
 					_0: A2(
 						_mdgriffith$stylish_elephants$Element$paragraph,
-						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _mdgriffith$stylish_elephants$Element$width(_mdgriffith$stylish_elephants$Element$fill),
+							_1: {ctor: '[]'}
+						},
 						{
 							ctor: '::',
 							_0: _mdgriffith$stylish_elephants$Element$text('This is an example of E-mail input field'),
@@ -35881,7 +35897,7 @@ var _user$project$Widgets_WidgetExample$viewElement = function (model) {
 		var _p11 = model.windowSize;
 		if (_p11.ctor === 'Just') {
 			var _p12 = _p11._0;
-			return (_elm_lang$core$Native_Utils.cmp(_p12.width, 500) < 0) ? {ctor: '_Tuple2', _0: 200, _1: sizeY} : ((_elm_lang$core$Native_Utils.cmp(_p12.width, 400) < 0) ? {ctor: '_Tuple2', _0: 200, _1: sizeY} : {ctor: '_Tuple2', _0: sizeX, _1: sizeY});
+			return (_elm_lang$core$Native_Utils.cmp(_p12.width, 550) < 0) ? {ctor: '_Tuple2', _0: _p12.width - 50, _1: sizeY} : {ctor: '_Tuple2', _0: sizeX, _1: sizeY};
 		} else {
 			return {ctor: '_Tuple2', _0: sizeX, _1: sizeY};
 		}
@@ -35994,7 +36010,7 @@ var _user$project$Widgets_WidgetExample$main = A2(
 		A2(_elm_lang$core$Json_Decode$field, 'height', _elm_lang$core$Json_Decode$int)));
 
 var _user$project$ExampleSPA$viewSelectWidget = A2(
-	_mdgriffith$stylish_elephants$Element$column,
+	_mdgriffith$stylish_elephants$Element$paragraph,
 	{
 		ctor: '::',
 		_0: _mdgriffith$stylish_elephants$Element_Background$color(_user$project$Framework_Color$white),
@@ -36003,30 +36019,26 @@ var _user$project$ExampleSPA$viewSelectWidget = A2(
 			_0: _mdgriffith$stylish_elephants$Element$padding(20),
 			_1: {
 				ctor: '::',
-				_0: _mdgriffith$stylish_elephants$Element$width(_mdgriffith$stylish_elephants$Element$shrink),
+				_0: _mdgriffith$stylish_elephants$Element$centerX,
 				_1: {
 					ctor: '::',
-					_0: _mdgriffith$stylish_elephants$Element$height(_mdgriffith$stylish_elephants$Element$shrink),
+					_0: _mdgriffith$stylish_elephants$Element$centerY,
 					_1: {
 						ctor: '::',
-						_0: _mdgriffith$stylish_elephants$Element$centerX,
+						_0: _mdgriffith$stylish_elephants$Element$width(_mdgriffith$stylish_elephants$Element$shrink),
 						_1: {
 							ctor: '::',
-							_0: _mdgriffith$stylish_elephants$Element$centerY,
+							_0: _mdgriffith$stylish_elephants$Element$alpha(0.8),
 							_1: {
 								ctor: '::',
-								_0: _mdgriffith$stylish_elephants$Element$alpha(0.8),
+								_0: _mdgriffith$stylish_elephants$Element$spacing(15),
 								_1: {
 									ctor: '::',
-									_0: _mdgriffith$stylish_elephants$Element$spacing(30),
+									_0: _mdgriffith$stylish_elephants$Element_Border$rounded(10),
 									_1: {
 										ctor: '::',
-										_0: _mdgriffith$stylish_elephants$Element_Border$rounded(10),
-										_1: {
-											ctor: '::',
-											_0: _mdgriffith$stylish_elephants$Element$scrollbarX,
-											_1: {ctor: '[]'}
-										}
+										_0: _mdgriffith$stylish_elephants$Element_Font$center,
+										_1: {ctor: '[]'}
 									}
 								}
 							}
@@ -36044,37 +36056,58 @@ var _user$project$ExampleSPA$viewSelectWidget = A2(
 var _user$project$ExampleSPA$widgetMenu = function (model) {
 	return {
 		ctor: '::',
-		_0: A3(
-			_user$project$Framework_Button$buttonLink,
+		_0: A2(
+			_mdgriffith$stylish_elephants$Element$el,
 			{
 				ctor: '::',
-				_0: _user$project$Framework_Modifier$Small,
+				_0: _mdgriffith$stylish_elephants$Element$width(_mdgriffith$stylish_elephants$Element$fill),
 				_1: {ctor: '[]'}
 			},
-			_user$project$Route$routeToString(_user$project$Route$RouteWidgetExampleEmailStep1),
-			'Example E-mail Field'),
-		_1: {
-			ctor: '::',
-			_0: A3(
+			A3(
 				_user$project$Framework_Button$buttonLink,
 				{
 					ctor: '::',
 					_0: _user$project$Framework_Modifier$Small,
 					_1: {ctor: '[]'}
 				},
-				_user$project$Route$routeToString(_user$project$Route$RouteWidgetExample4DigitCodeStep1),
-				'Example 4 digit code'),
-			_1: {
-				ctor: '::',
-				_0: A3(
+				_user$project$Route$routeToString(_user$project$Route$RouteWidgetExampleEmailStep1),
+				'Example E-mail Field')),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_mdgriffith$stylish_elephants$Element$el,
+				{
+					ctor: '::',
+					_0: _mdgriffith$stylish_elephants$Element$width(_mdgriffith$stylish_elephants$Element$fill),
+					_1: {ctor: '[]'}
+				},
+				A3(
 					_user$project$Framework_Button$buttonLink,
 					{
 						ctor: '::',
 						_0: _user$project$Framework_Modifier$Small,
 						_1: {ctor: '[]'}
 					},
-					_user$project$Route$routeToString(_user$project$Route$RouteFramework),
-					'Framework'),
+					_user$project$Route$routeToString(_user$project$Route$RouteWidgetExample4DigitCodeStep1),
+					'Example 4 digit code')),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_mdgriffith$stylish_elephants$Element$el,
+					{
+						ctor: '::',
+						_0: _mdgriffith$stylish_elephants$Element$width(_mdgriffith$stylish_elephants$Element$fill),
+						_1: {ctor: '[]'}
+					},
+					A3(
+						_user$project$Framework_Button$buttonLink,
+						{
+							ctor: '::',
+							_0: _user$project$Framework_Modifier$Small,
+							_1: {ctor: '[]'}
+						},
+						_user$project$Route$routeToString(_user$project$Route$RouteFramework),
+						'Framework')),
 				_1: {ctor: '[]'}
 			}
 		}
@@ -36607,6 +36640,63 @@ var _user$project$ExampleSPA$viewBody = function (model) {
 		}());
 };
 var _user$project$ExampleSPA$viewElement = function (model) {
+	var menuAttributes = function () {
+		var _p12 = model.windowSize;
+		if (_p12.ctor === 'Just') {
+			return (_elm_lang$core$Native_Utils.cmp(_p12._0.width, 550) < 0) ? {
+				ctor: '::',
+				_0: _mdgriffith$stylish_elephants$Element$alpha(1),
+				_1: {
+					ctor: '::',
+					_0: _mdgriffith$stylish_elephants$Element$spacing(2),
+					_1: {
+						ctor: '::',
+						_0: _mdgriffith$stylish_elephants$Element$padding(6),
+						_1: {
+							ctor: '::',
+							_0: _mdgriffith$stylish_elephants$Element$width(
+								_mdgriffith$stylish_elephants$Element$px(200)),
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			} : {
+				ctor: '::',
+				_0: _mdgriffith$stylish_elephants$Element$alpha(0.7),
+				_1: {
+					ctor: '::',
+					_0: _mdgriffith$stylish_elephants$Element$spacing(10),
+					_1: {
+						ctor: '::',
+						_0: _mdgriffith$stylish_elephants$Element$padding(16),
+						_1: {ctor: '[]'}
+					}
+				}
+			};
+		} else {
+			return {
+				ctor: '::',
+				_0: _mdgriffith$stylish_elephants$Element$alpha(0.5),
+				_1: {
+					ctor: '::',
+					_0: _mdgriffith$stylish_elephants$Element$spacing(10),
+					_1: {
+						ctor: '::',
+						_0: _mdgriffith$stylish_elephants$Element$padding(16),
+						_1: {ctor: '[]'}
+					}
+				}
+			};
+		}
+	}();
+	var menuType = function () {
+		var _p13 = model.windowSize;
+		if (_p13.ctor === 'Just') {
+			return (_elm_lang$core$Native_Utils.cmp(_p13._0.width, 550) < 0) ? _mdgriffith$stylish_elephants$Element$column : _mdgriffith$stylish_elephants$Element$row;
+		} else {
+			return _mdgriffith$stylish_elephants$Element$row;
+		}
+	}();
 	var header = _user$project$ExampleSPA$viewHeader(model);
 	return A2(
 		_mdgriffith$stylish_elephants$Element$column,
@@ -36620,40 +36710,27 @@ var _user$project$ExampleSPA$viewElement = function (model) {
 				_1: {
 					ctor: '::',
 					_0: A2(
-						_mdgriffith$stylish_elephants$Element$row,
-						{
-							ctor: '::',
-							_0: A2(_user$project$ExampleSPA$hackStyle, 'position', 'fixed'),
-							_1: {
+						menuType,
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							{
 								ctor: '::',
-								_0: A2(_user$project$ExampleSPA$hackStyle, 'top', '0'),
+								_0: A2(_user$project$ExampleSPA$hackStyle, 'position', 'fixed'),
 								_1: {
 									ctor: '::',
-									_0: A2(_user$project$ExampleSPA$hackStyle, 'right', '0'),
+									_0: A2(_user$project$ExampleSPA$hackStyle, 'top', '0'),
 									_1: {
 										ctor: '::',
-										_0: A2(_user$project$ExampleSPA$hackStyle, 'z-index', '2'),
+										_0: A2(_user$project$ExampleSPA$hackStyle, 'right', '0'),
 										_1: {
 											ctor: '::',
-											_0: _mdgriffith$stylish_elephants$Element$alpha(0.5),
-											_1: {
-												ctor: '::',
-												_0: _mdgriffith$stylish_elephants$Element$spacing(10),
-												_1: {
-													ctor: '::',
-													_0: _mdgriffith$stylish_elephants$Element$padding(20),
-													_1: {
-														ctor: '::',
-														_0: _mdgriffith$stylish_elephants$Element_Font$alignRight,
-														_1: {ctor: '[]'}
-													}
-												}
-											}
+											_0: A2(_user$project$ExampleSPA$hackStyle, 'z-index', '2'),
+											_1: {ctor: '[]'}
 										}
 									}
 								}
-							}
-						},
+							},
+							menuAttributes),
 						_user$project$ExampleSPA$widgetMenu(model)),
 					_1: {ctor: '[]'}
 				}
@@ -36713,10 +36790,10 @@ var _user$project$ExampleSPA$view2 = function (model) {
 	return _user$project$ExampleSPA$viewStylish(model);
 };
 var _user$project$ExampleSPA$view = function (model) {
-	var _p12 = _user$project$Route$maybeRoute(model.location);
-	if (_p12.ctor === 'Just') {
-		var _p13 = _p12._0;
-		switch (_p13.ctor) {
+	var _p14 = _user$project$Route$maybeRoute(model.location);
+	if (_p14.ctor === 'Just') {
+		var _p15 = _p14._0;
+		switch (_p15.ctor) {
 			case 'RouteFramework':
 				return _user$project$ExampleSPA$viewFramework(model);
 			case 'RouteFramework2':
